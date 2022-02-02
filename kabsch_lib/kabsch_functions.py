@@ -47,14 +47,13 @@ def translate_to_origin(A, B):
             translated_coord = coord - mean
             np.append(translated_column, translated_coord)
 
-        np.append(translated_matrices, translated_column)
+
+    np.append(translated_matrices, translated_column)
     
     # separate results back into the two respective matrices A and B 
-    A_translated = translated_matrices[:, [0,1,2]]
-    B_translated = translated_matrices[:, [3,4,5]]
+    A_translated = translated_matrices[0:3, 0:10]
+    B_translated = translated_matrices[3:6, 0:10]
 
-    print(A_translated)
-    print(B_translated)
 
     return A_translated, B_translated, means
 
@@ -109,27 +108,30 @@ def revert_translation(means, B_translated, A_rotated):
             reverted_coord = coord + mean
             np.append(reverted_column, reverted_coord)
 
-        np.append(reverted_matrices, reverted_column)
+    np.append(reverted_matrices, reverted_column)
     
     # separate results back into the two respective matrices A and B 
-    A_reverted = reverted_matrices[:, [0,1,2]]
-    B_reverted = reverted_matrices[:, [3,4,5]]
-
-    print(A_reverted)
-    print(B_reverted)
+    A_reverted = reverted_matrices[0:3, 0:10]
+    B_reverted = reverted_matrices[3:6, 0:10]
 
     return A_reverted, B_reverted
 
 
 def run_kabsch():
+
     A, B = import_matrices()
+    print('A shape: ', A.shape)
+    print('B shape: ', B.shape)
     A_translated, B_translated, means = translate_to_origin(A, B)
-    print(B_translated.shape)
     H = compute_covariance_matrix(A_translated, B_translated)
+    print('H shape: ', H.shape)
     R = compute_optimal_rotation_matrix(H)
+    print('R shape: ', R.shape)
     A_rotated = apply_rotation(A_translated, R)
-    print((A_rotated.shape))
-    A_reverted, B_reverted = revert_translation(means, B_translated, A_rotated)
+    print('A_rotated shape: ', A_rotated.shape)
+    A_reverted, B_reverted = revert_translation(means=means, B_translated=B_translated, A_rotated=A_rotated)
+    print('A_reverted shape: ', A_reverted.shape)
+    print('B_reverted shape: ', B_reverted.shape)
 
     return A_reverted, B_reverted
 
