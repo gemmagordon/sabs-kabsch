@@ -21,16 +21,19 @@ def import_matrices(pdb_id, limit):
     :rtype: np.array
     '''
 
+    # use biopython to set up access to the PDB to retrieve files and structure coordinates
     pdbl = PDBList()
     pdb_file = pdbl.retrieve_pdb_file(pdb_id, file_format='pdb', overwrite=True, pdir='temp_pdb')
 
     parser = PDBParser()
     protein_structure = parser.get_structure(str(pdb_id), pdb_file)
     
+    # set up empty lists ready to store coordinates
     x_coords = []
     y_coords = []
     z_coords = []
 
+    # extract coordinates from PDB structure object
     for model in protein_structure:
         for chain in model:
             for residue in chain:
@@ -40,8 +43,10 @@ def import_matrices(pdb_id, limit):
                     y_coords.append(y)
                     z_coords.append(z)
 
+    # create matrix of X,Y,Z coordinates
     matrix = np.array([x_coords[0:limit], y_coords[0:limit], z_coords[0:limit]])
 
+    # remove temp directories to avoid cluttering directory/overwrite errors
     shutil.rmtree('temp_pdb')
     # obsolete folder exists depending on PDB structure, ignore error if doesn't exist
     shutil.rmtree('obsolete', ignore_errors=True)
@@ -69,7 +74,7 @@ def generate_matrices():
 
     B_z = np.linspace(10, 20, 50)
     q = B_z**2 + 1
-    B_x = q * np.cos(theta) # switch sin and cos for x and y 
+    B_x = q * np.cos(theta) # switched sin and cos for x and y 
     B_y = q * np.sin(theta)
 
     # extract points into matrix
@@ -92,8 +97,11 @@ def translate_to_origin(matrix):
     :rtype: float
     '''
     
+    # calculate means for each column in matrix
     matrix_means = np.mean(matrix, axis=1)
     matrix_translated = matrix.copy()
+
+    # subtract mean from each value in column to translate matrix 
     for axis in range(len(matrix_means)):
         matrix_translated[axis] -= matrix_means[axis]
 
@@ -113,7 +121,7 @@ def compute_covariance_matrix(A_translated, B_translated):
     :rtype: np.array
     '''
     
-    # multiply Bt (transposed) by A (gives H)
+    # covariance matrix = transpose of B multiplied by A
     H = np.matmul(B_translated.T, A_translated)
 
     return H 
@@ -130,11 +138,10 @@ def compute_optimal_rotation_matrix(H):
     :rtype: np.array
     '''
     
-    # find SVD of H 
-    U, S, V = np.linalg.svd(H) # np.linalg.svd does not return transpose of V
+    # rotation matrix calculated by first finding the SVD, which gives U, S and V as results
+    U, S, V = np.linalg.svd(H) 
+    # rotation matrix R is calculated by transpose of V x transpose of U 
     Vt = V.T
-    # keep matrices 1 and 3 from the decomposition (U and V) - will be Vt if python svd gives transposed V
-    # rotation matrix R is Vt x Ut (transposed U) (transpose V if not given as transposed)
     R = np.matmul(Vt, U.T)
     
     return R
@@ -153,7 +160,7 @@ def apply_rotation(A_translated, R):
     :rtype: np.array
     '''
 
-    # to get rotated A, multiply A x R
+    # apply rotation to translated A matrix by multiplying A by the rotation matrix
     A_rotated = np.matmul(A_translated, R)
 
     return A_rotated
@@ -178,7 +185,11 @@ def revert_translation(A_rotated, B_translated, A_means, B_means):
     :return: Updated matrix for B, translated back to original centroid placement (identical to original matrix B)
     :rtype: np.array
     '''
-    
+
+
+    # for each of matrices A and B, revert the centroids back to their original position
+    # do opposite of translate_to_origin() and add means of each column back to coordinate values
+
     A_reverted = A_rotated.copy()
     for axis in range(len(A_means)):
         A_reverted[axis] += A_means[axis]
@@ -212,14 +223,21 @@ def plot_to_compare(results_1, results_2, label_1, label_2, plot_name, file_name
     
     '''
 
+    # create figure 
     ax = plt.figure(figsize=(15,15)).add_subplot(projection='3d')
+
+    # plot matrices for comparison 
     ax.plot(results_1[0], results_1[1], results_1[2], label=label_1, color='r')
     ax.plot(results_2[0], results_2[1], results_2[2], label=label_2, color='b')
+
+    # set plot titles and labels
     ax.legend(loc='upper left', fontsize=20)
     ax.set_xlabel('X', fontsize=20)
     ax.set_ylabel('Y', fontsize=20)
     ax.set_zlabel('Z', fontsize=20)
     plt.title(plot_name, fontsize=20)
+
+    # save plot to file & close 
     plt.savefig(file_name)
     plt.close()
 
@@ -234,7 +252,8 @@ def run_kabsch_simple_example():
     :rtype: none
     '''
 
-    A, B = generate_matrices()  
+    # call each function for the algorithm in turn, saving returned values as variables each time
+    A, B = generate_matrices()   # generate_matrices() produces both A and B in one go (for PDB example, import_matrices() must be called twice)
     A_translated, A_means = translate_to_origin(A)
     B_translated, B_means = translate_to_origin(B)
     H = compute_covariance_matrix(A_translated, B_translated)
@@ -242,6 +261,7 @@ def run_kabsch_simple_example():
     A_rotated = apply_rotation(A_translated, R)
     A_reverted, B_reverted = revert_translation(A_rotated, B_translated, A_means, B_means)
 
+    # call plotting function to generate visualisation of results 
     plot_to_compare(results_1=A, results_2=B, label_1='matrix A pre-Kabsch', 
                     label_2='matrix B pre-Kabsch', plot_name='Matrices A and B before applying Kabsch alignment', 
                     file_name='A vs B pre-Kabsch')
@@ -266,8 +286,8 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
     :return: none
     :rtype: none
     '''
-
-    A = import_matrices(pdb_id=pdb_id_1, limit=limit)  
+    # call each function for the algorithm in turn, saving returned values as variables each time
+    A = import_matrices(pdb_id=pdb_id_1, limit=limit)  # import_matrices() must be called twice, once for each matrix to generate 
     B = import_matrices(pdb_id=pdb_id_2, limit=limit)  
     A_translated, A_means = translate_to_origin(A)
     B_translated, B_means = translate_to_origin(B)
@@ -276,6 +296,7 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
     A_rotated = apply_rotation(A_translated, R)
     A_reverted, B_reverted = revert_translation(A_rotated, B_translated, A_means, B_means)
 
+    # call plotting function to generate visualisation of results
     plot_to_compare(results_1=A, results_2=B, label_1=str(pdb_id_1) + ' pre-Kabsch', 
                     label_2=str(pdb_id_2) + ' pre-Kabsch', 
                     plot_name='Proteins ' + pdb_id_1 + ' and ' + pdb_id_2 + ' before applying Kabsch alignment', 
@@ -288,5 +309,6 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
     return
 
 
+# call main functions to run algorithm for both examples 
 run_kabsch_simple_example()
-run_kabsch_pdb_example(pdb_id_1='7cr5', pdb_id_2='7co2', limit=800)
+run_kabsch_pdb_example(pdb_id_1='7cr5', pdb_id_2='7co2', limit=800)  # params can be changed here by users choice
