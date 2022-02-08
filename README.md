@@ -6,7 +6,7 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
  
 - **Installation**
 
-    - Activate Python environment (venv)
+    - Activate Python environment (*venv*)
     - Package is pip-installable:
 
         ```pip install sabs-kabsch```
