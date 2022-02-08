@@ -2,6 +2,10 @@
 # sabs-kabsch
 Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &amp; Scientific Computing. 
 
+## Instructions for use:
+ 
+- *Installation*
+- *Examples*
 
 ## *What can the Kabsch algorithm be used for?*
 
