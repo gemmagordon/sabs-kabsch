@@ -4,7 +4,7 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 
 ## *Kabsch Algorithm*
 
-  <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20pre-Kabsch.png" width="50%" /> <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20post-Kabsch.png" width="50%" />
+  <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20pre-Kabsch.png" width="40%" /> <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20post-Kabsch.png" width="40%" />
 
 
 
