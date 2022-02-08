@@ -4,6 +4,7 @@ from Bio.PDB import PDBList
 from Bio.PDB import PDBParser
 import shutil
 
+# block messy PDB Construction warnings from being printed in terminal
 import warnings
 from Bio import BiopythonWarning
 warnings.simplefilter('ignore', BiopythonWarning)
@@ -261,10 +262,13 @@ def run_kabsch_simple_example():
     A_rotated = apply_rotation(A_translated, R)
     A_reverted, B_reverted = revert_translation(A_rotated, B_translated, A_means, B_means)
 
-    # call plotting function to generate visualisation of results 
+    # call plotting function to generate visualisations of results 
+    # plot original A vs B matrices
     plot_to_compare(results_1=A, results_2=B, label_1='matrix A pre-Kabsch', 
                     label_2='matrix B pre-Kabsch', plot_name='Matrices A and B before applying Kabsch alignment', 
                     file_name='A vs B pre-Kabsch')
+    
+    # plot A mapped to B after processing with algorithm
     plot_to_compare(results_1=A_reverted, results_2=B, label_1='matrix A post-Kabsch', 
                     label_2='matrix B', plot_name='Matrix A mapped to B with Kabsch algorithm', 
                     file_name='A vs B post-Kabsch')
@@ -287,7 +291,7 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
     :rtype: none
     '''
     # call each function for the algorithm in turn, saving returned values as variables each time
-    A = import_matrices(pdb_id=pdb_id_1, limit=limit)  # import_matrices() must be called twice, once for each matrix to generate 
+    A = import_matrices(pdb_id=pdb_id_1, limit=limit)   # import_matrices() must be called twice, once for each matrix to generate 
     B = import_matrices(pdb_id=pdb_id_2, limit=limit)  
     A_translated, A_means = translate_to_origin(A)
     B_translated, B_means = translate_to_origin(B)
@@ -297,10 +301,13 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
     A_reverted, B_reverted = revert_translation(A_rotated, B_translated, A_means, B_means)
 
     # call plotting function to generate visualisation of results
+    # plot original protein structures on same axes
     plot_to_compare(results_1=A, results_2=B, label_1=str(pdb_id_1) + ' pre-Kabsch', 
                     label_2=str(pdb_id_2) + ' pre-Kabsch', 
                     plot_name='Proteins ' + pdb_id_1 + ' and ' + pdb_id_2 + ' before applying Kabsch alignment', 
                     file_name=str(pdb_id_1) + ' and ' + str(pdb_id_2) + ' pre-Kabsch')
+    
+    # plot A after processing with algorithm against B to show alignment
     plot_to_compare(results_1=A_reverted, results_2=B, label_1=str(pdb_id_1) + ' post-Kabsch', 
                     label_2=str(pdb_id_2), 
                     plot_name='Protein ' + pdb_id_1 + ' mapped to ' + pdb_id_2 + ' with Kabsch algorithm', 
