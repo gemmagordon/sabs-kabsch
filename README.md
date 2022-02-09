@@ -1,5 +1,5 @@
 [![Documentation Status](https://readthedocs.org/projects/sabs-kabsch/badge/?version=latest&style=flat-square)](https://sabs-kabsch.readthedocs.io/en/latest/?badge=latest&style=flat-square)
-# sabs-kabsch
+# sabs_kabsch
 Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &amp; Scientific Computing. 
 
 ## *Instructions for use:*
@@ -7,16 +7,18 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 - **Installation**
 
     - Activate Python environment (*venv*)
-    - Package is pip-installable:
+    - Package is pip-installable: <br/><br/>
+    First, clone the repository:   
+        ```git clone https://github.com/gemmagordon/sabs-kabsch.git```
 
-        ```pip install sabs-kabsch```
-        
+      Then in the cloned directory, run:                     
+        ```pip install .```<br/>
 
 - **Examples**
 
     - Navigate to *examples* folder to find:
 
-        - Jupyter notebook explaining how the algorithm implementation works step-by-step.
+        - A Jupyter notebook explaining how the algorithm implementation works step-by-step.
         - Example matplotlib visualisations of results.
 
 
@@ -26,9 +28,8 @@ The Kabsch algorithm is an alignment algorithm which aims to find an optimal rot
 
 ### *What can the Kabsch algorithm be used for?*
 
-The Kabsch algorithm is applicable in computational biology, for example in aligning protein structures and calculating the minimal RMSD between two structures (similar in functionality to the align method in PyMol). 
+The Kabsch algorithm is applicable in computational biology, for example in aligning two protein structures and calculating the minimal RMSD between them. 
 
-- measure difference in RMSD - protein conformational change
 
 ### *How does the Kabsch algorithm work?*
 
@@ -38,17 +39,20 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 
 2) Translate both A and B so that their centroids lie around the origin on the 3D axes. To do this, the mean of each column of the matrix (i.e., the mean of the X, Y and Z coordinates) is found and then subtracted from each value (coordinate) in the corresponding column.
 
-2) Compute the covariance matrix for A and B. 
+2) Compute the covariance matrix for A and B using the formula: 
 
-  - *NOTE: more explanation needed
-  - ADD IN FORMULA
+      *H = B<sub>translated</sub><sup>T</sup> x A<sub>translated</sub>*
 
-3) Computing the optimal rotation matrix using singular value decomposition (SVD).
+3) Computing the optimal rotation matrix using singular value decomposition (SVD) using the formula: 
 
-  - *NOTE: more explanation needed
-  - ADD IN FORMULA
+      *H = U x S x V<sup>T</sup>*
+
+      *R = V<sup>T</sup> x U<sup>T</sup>*
+
 
 4) Apply this rotation to A, so that A is rotated in such a way that offers the best alignment with B (i.e. the RMSD is minimised). 
+
+      *A<sub>rotated</sub> = A<sub>translated</sub> x R*
 
 5) Translate the resulting matrix for A, after its transformation, back to where the centroid was originally placed. This is done by simply adding back the relevant mean value to each coordinate in the matrix. *The same is carried out for B, in that it is translated to the origin and then translated back in this implementation, but this isn't really necessary, as the result is equal to the original matrix for B (as would be expected).*
 
