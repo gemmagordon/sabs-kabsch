@@ -1,4 +1,4 @@
-#!/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs-kabsch/venv/bin/python3
+#!/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs_kabsch/venv/bin/python3
 
 # Author:
 # Contact: grubert@users.sf.net

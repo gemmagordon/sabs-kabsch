@@ -1,4 +1,4 @@
-#!/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs-kabsch/venv/bin/python3
+#!/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs_kabsch/venv/bin/python3
 
 # $Id: rst2odt_prepstyles.py 8346 2019-08-26 12:11:32Z milde $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>
