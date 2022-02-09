@@ -22,12 +22,7 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 
 ## *About the Kabsch algorithm:*
 
-- based on linear algebra
-- alignment algorithm 
-- minimises the RMSD between two sets of points - in this case in 3D space but it can be scaled up to N dimensions
-- Kabsch algorithm based on finding the optimal rotation to align two sets of points
-- O(n) efficiency 
-
+The Kabsch algorithm is an alignment algorithm which aims to find an optimal rotation (where optimal is defined by minimising the RMSD (root-mean-square deviation), a measure of difference) to align two sets of points with O(n) efficiency.
 
 ### *What can the Kabsch algorithm be used for?*
 
@@ -55,7 +50,7 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 
 4) Apply this rotation to A, so that A is rotated in such a way that offers the best alignment with B (i.e. the RMSD is minimised). 
 
-5) Translate the resulting matrix for A, after its transformation, back to where the centroid was originally placed. This is done by simply adding back the relevant mean value to each coordinate in the matrix. *The same is carried out for B, in that it is translated to the origin and then translated back in this implementation, but this isn't really necessary, as the result is equal to the original matrix for B (as would be expected)*
+5) Translate the resulting matrix for A, after its transformation, back to where the centroid was originally placed. This is done by simply adding back the relevant mean value to each coordinate in the matrix. *The same is carried out for B, in that it is translated to the origin and then translated back in this implementation, but this isn't really necessary, as the result is equal to the original matrix for B (as would be expected).*
 
 
 ### *Remaining limitations of algorithm and this implementation:*
