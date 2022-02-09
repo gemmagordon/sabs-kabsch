@@ -31,16 +31,32 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 
 ### *What can the Kabsch algorithm be used for?*
 
-- applications in computational biology and chemistry for aligning molecules e.g. protein structures
-- e.g. pymol align method? 
+The Kabsch algorithm is applicable in computational biology, for example in aligning protein structures and calculating the minimal RMSD between two structures (similar in functionality to the align method in PyMol). 
+
+- measure difference in RMSD - protein conformational change
 
 ### *How does the Kabsch algorithm work?*
 
   <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20pre-Kabsch.png" width="40%" /> <img src="https://github.com/gemmagordon/sabs-kabsch/blob/main/examples/A%20vs%20B%20post-Kabsch.png" width="40%" />
 
-1) Translation
-2) Computing a covariance matrix
-3) Computing the optimal rotation matrix
+1) Start with two matrices, A & B, of size NxM (which in this implementation are two datasets of X,Y,Z coordinates of size 3x50). Matrix A is being aligned to matrix B, which is acting as a sort of template.
+
+2) Translate both A and B so that their centroids lie around the origin on the 3D axes. To do this, the mean of each column of the matrix (i.e., the mean of the X, Y and Z coordinates) is found and then subtracted from each value (coordinate) in the corresponding column.
+
+2) Compute the covariance matrix for A and B. 
+
+  - *NOTE: more explanation needed
+  - ADD IN FORMULA
+
+3) Computing the optimal rotation matrix using singular value decomposition (SVD).
+
+  - *NOTE: more explanation needed
+  - ADD IN FORMULA
+
+4) Apply this rotation to A, so that A is rotated in such a way that offers the best alignment with B (i.e. the RMSD is minimised). 
+
+5) Translate the resulting matrix for A, after its transformation, back to where the centroid was originally placed. This is done by simply adding back the relevant mean value to each coordinate in the matrix. *The same is carried out for B, in that it is translated to the origin and then translated back in this implementation, but this isn't really necessary, as the result is equal to the original matrix for B (as would be expected)*
+
 
 ### *Remaining limitations of algorithm and this implementation:*
 - doesn't include scaling
