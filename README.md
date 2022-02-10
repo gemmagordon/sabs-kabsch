@@ -1,4 +1,3 @@
-[![Documentation Status](https://readthedocs.org/projects/sabs-kabsch/badge/?version=latest&style=flat-square)](https://sabs-kabsch.readthedocs.io/en/latest/?badge=latest&style=flat-square)
 # sabs_kabsch
 Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &amp; Scientific Computing. 
 
