@@ -1,5 +1,5 @@
 Metadata-Version: 1.0
-Name: sabs-kabsch
+Name: sabs_kabsch
 Version: 0.1.0
 Summary: Implementation of the Kabsch algorithm as a Python library
 Home-page: UNKNOWN

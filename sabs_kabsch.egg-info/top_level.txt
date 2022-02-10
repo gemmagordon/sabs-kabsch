@@ -1,2 +1,1 @@
 sabs_kabsch
-tests
