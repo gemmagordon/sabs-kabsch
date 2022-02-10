@@ -7,7 +7,7 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 
     - Package is pip-installable: <br/><br/>
     First, clone the repository:   
-        ```git clone https://github.com/gemmagordon/sabs-kabsch.git```
+        ```git clone https://github.com/gemmagordon/sabs_kabsch.git```
 
       Then in the cloned directory, run:                     
         ```pip install .```<br/>
