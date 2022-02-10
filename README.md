@@ -6,17 +6,22 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 - **Installation**
 
     - Package is pip-installable: <br/><br/>
-    First, clone the repository:   
-        ```git clone https://github.com/gemmagordon/sabs_kabsch.git```
+    First, clone the repository:  
 
-      Create a new Python virtual environment, activate it & install the package requirements (*requirements.txt*).<br/><br/>
-      Then in the cloned directory, run:                     
-        ```pip install .```<br/>
+      ```git clone https://github.com/gemmagordon/sabs_kabsch.git```
+
+      Create a new Python virtual environment, activate it & install the package requirements (*requirements.txt*).<br/>
+
+      Then in the cloned directory, run: 
+      
+      ```pip install .```<br/>
 
       To use in a Python script, import the package with:
-        ```import sabs_kabsch``` 
+        
+      ```import sabs_kabsch``` 
 
       Call functions from sabs_kabsch with, for example:
+
        ```sabs_kabsch.generate_matrices()```
 
 - **Example usage** 
@@ -63,11 +68,10 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 
 
 ### *Remaining limitations of algorithm and/or this implementation:*
-- doesn't include scaling
-- limited by necessity of matrices being same length
-- rigidity in transformations? 
-- other registration/alignment algorithms - e.g. ICP? 
-- using SVD doesn't account for special cases e.g. matrices with no inverse? 
+- The Kabsch algorithm is also known as 'partial' Procrustes superimposition (as opposed to full PS) as although there is translation and rotation, there is no scaling. 
+- Correspondence between the sets of points is assumed - other alignment algorithms such as ICP do not make this assumption.
+- This implementation is limited by the size/shapes of the two matrices having to be identical.
+- SVD is used here in calculating the optimal rotation matrix but there are alternative methods - this solution might not cover all cases.
 
 ### *Sources*
 - https://zpl.fi/aligning-point-patterns-with-kabsch-umeyama-algorithm/
@@ -78,3 +82,5 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 - https://www.hgc.jp/~tshibuya/papers/jcb10b_preprint(faster3D).pdf 
 - https://en.wikipedia.org/wiki/Kabsch_algorithm
 - https://zpl.fi/aligning-point-patterns-with-kabsch-umeyama-algorithm/ 
+- https://en.wikipedia.org/wiki/Procrustes_analysis
+
