@@ -9,15 +9,22 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
     First, clone the repository:   
         ```git clone https://github.com/gemmagordon/sabs_kabsch.git```
 
+      Create a new Python virtual environment, activate it & install the package requirements (*requirements.txt*).<br/><br/>
       Then in the cloned directory, run:                     
         ```pip install .```<br/>
-            ```
-- **Examples**
 
-    - Navigate to *examples* folder to find:
+      To use in a Python script, import the package with:
+        ```import sabs_kabsch``` 
 
-        - A **Jupyter notebook** explaining how the algorithm implementation works step-by-step.
-        - Example matplotlib visualisations of results.
+      Call functions from sabs_kabsch with, for example:
+       ```sabs_kabsch.generate_matrices()```
+
+- **Example usage** 
+
+    - Navigate to **examples** folder to find:
+
+        - A **Jupyter notebook** (*kabsch.ipynb*) explaining how the algorithm implementation works and how to use it, using each function available in the package step-by-step.
+        - Examples of matplotlib visualisations of results, from running the example datasets in *kabsch.ipynb* or *kabsch_functions.py*
 
 
 ## *About the Kabsch algorithm:*
@@ -55,7 +62,7 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 5) Translate the resulting matrix for A, after its transformation, back to where the centroid was originally placed. This is done by simply adding back the relevant mean value to each coordinate in the matrix. *The same is carried out for B, in that it is translated to the origin and then translated back in this implementation, but this isn't really necessary, as the result is equal to the original matrix for B (as would be expected).*
 
 
-### *Remaining limitations of algorithm and this implementation:*
+### *Remaining limitations of algorithm and/or this implementation:*
 - doesn't include scaling
 - limited by necessity of matrices being same length
 - rigidity in transformations? 
@@ -69,3 +76,5 @@ The Kabsch algorithm is applicable in computational biology, for example in alig
 - https://towardsdatascience.com/the-definitive-procedure-for-aligning-two-sets-of-3d-points-with-the-kabsch-algorithm-a7ec2126c87e
 - http://computerandchemistry.blogspot.com/2013/04/calculate-rmsd-from-two-xyz-files.html
 - https://www.hgc.jp/~tshibuya/papers/jcb10b_preprint(faster3D).pdf 
+- https://en.wikipedia.org/wiki/Kabsch_algorithm
+- https://zpl.fi/aligning-point-patterns-with-kabsch-umeyama-algorithm/ 
