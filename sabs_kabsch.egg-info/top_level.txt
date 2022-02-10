@@ -1,2 +1,2 @@
-kabsch_lib
+sabs_kabsch
 tests
