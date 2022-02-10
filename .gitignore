@@ -1,7 +1,7 @@
 # Packaging 
 build/
 dist/
-sabs_kabsch.egg_info/
+sabs_kabsch.egg-info/
 
 # Virtual environment
 venv/
