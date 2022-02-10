@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs_kabsch/venv"
+set -gx VIRTUAL_ENV "/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

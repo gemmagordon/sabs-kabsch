@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/sabs_kabsch/venv"
+VIRTUAL_ENV="/Users/gemmagordon/Documents/OXFORD/SCIENTIFIC_COMPUTING/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
