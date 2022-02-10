@@ -1,0 +1,7 @@
+# Packaging 
+build/
+dist/
+*.egg_info/
+
+# Virtual environment
+venv/

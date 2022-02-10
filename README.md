@@ -11,12 +11,12 @@ Implementation of Kabsch algorithm as a Python library for SABS R3 Modelling &am
 
       Then in the cloned directory, run:                     
         ```pip install .```<br/>
-
+            ```
 - **Examples**
 
     - Navigate to *examples* folder to find:
 
-        - A Jupyter notebook explaining how the algorithm implementation works step-by-step.
+        - A **Jupyter notebook** explaining how the algorithm implementation works step-by-step.
         - Example matplotlib visualisations of results.
 
 
