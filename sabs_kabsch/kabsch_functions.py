@@ -317,5 +317,5 @@ def run_kabsch_pdb_example(pdb_id_1, pdb_id_2, limit=1000):
 
 
 # call main functions to run algorithm for both examples 
-run_kabsch_simple_example()
-run_kabsch_pdb_example(pdb_id_1='7cr5', pdb_id_2='7co2', limit=800)  # params can be changed here by users choice
+#run_kabsch_simple_example()
+#run_kabsch_pdb_example(pdb_id_1='7cr5', pdb_id_2='7co2', limit=800)  # params can be changed here by users choice
